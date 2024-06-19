@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Dynamic Styles</title>
+    <script>
+        // Script to demonstrate dynamic styles. 
+        function start() {
+            var inputColor = prompt("Enter a color name for the background of this page", "");
+            document.body.setAttribute("style", "background-color: " + inputColor);
+        } // end function start
+
+        window.addEventListener("load", start, false);
+    </script>
+</head>
+<body>
+    <p>Welcome to our website!</p>
+</body>
+</html>
