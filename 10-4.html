@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Roll a Six-Sided Die 6000000 Times</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script>
+    var frequency = [, 0, 0, 0, 0, 0, 0]; // frequency[0] uninitialized
+    var totalDice = 0;
+    var dieImages = new Array(12); // array to store img elements
+
+    function start() {
+        var button = document.getElementById("rollButton");
+        button.addEventListener("click", rollDice, false);
+        
+        var length = dieImages.length; // get array's length once before loop
+        for (var i = 0; i < length; ++i) {
+            dieImages[i] = document.getElementById("die" + (i + 1));
+        } // end for
+    } // end function start
+
+    function rollDice() {
+        var face; // face rolled
+        var length = dieImages.length;
+
+        for (var i = 0; i < length; ++i) {
+            face = Math.floor(1 + Math.random() * 6);
+            tallyRolls(face); // increment a frequency counter
+            setImage(i, face); // display appropriate die image
+            ++totalDice; // increment total
+        } // end for
+
+        updateFrequencyTable();
+    } // end function rollDice
+
+    function tallyRolls(face) {
+        ++frequency[face]; // increment appropriate counter
+    } // end function tallyRolls
+
+    function setImage(dieNumber, face) {
+        dieImages[dieNumber].setAttribute("src", "die" + face + ".png");
+        dieImages[dieNumber].setAttribute("alt", "die with " + face + " spot(s)");
+    } // end function setImage
+
+    function updateFrequencyTable() {
+        var results = "<table><caption>Die Rolling Frequencies</caption>" +
+            "<thead><th>Face</th><th>Frequency</th>" +
+            "<th>Percent</th></thead><tbody>";
+        var length = frequency.length;
+
+        for (var i = 1; i < length; ++i) {
+            results += "<tr><td>" + i + "</td><td>" + frequency[i] + "</td><td>" +
+                formatPercent(frequency[i] / totalDice) + "</td></tr>";
+        } // end for
+
+        results += "</tbody></table>";
+        document.getElementById("frequencyTableDiv").innerHTML = results;
+    } // end function updateFrequencyTable
+
+    function formatPercent(value) {
+        value *= 100;
+        return value.toFixed(2);
+    } // end function formatPercent
+
+    window.addEventListener("load", start, false);
+</script>
+</head>
+<body>
+<p>
+    <img id="die1" src="blank.png" alt="die 1 image">
+    <img id="die2" src="blank.png" alt="die 2 image">
+    <img id="die3" src="blank.png" alt="die 3 image">
+    <img id="die4" src="blank.png" alt="die 4 image">
+    <img id="die5" src="blank.png" alt="die 5 image">
+    <img id="die6" src="blank.png" alt="die 6 image">
+</p>
+<p>
+    <img id="die7" src="blank.png" alt="die 7 image">
+    <img id="die8" src="blank.png" alt="die 8 image">
+    <img id="die9" src="blank.png" alt="die 9 image">
+    <img id="die10" src="blank.png" alt="die 10 image">
+    <img id="die11" src="blank.png" alt="die 11 image">
+    <img id="die12" src="blank.png" alt="die 12 image">
+</p>
+<form>
+    <input id="rollButton" type="button" value="Roll Dice">
+</form>
+<div id="frequencyTableDiv"></div>
+</body>
+</html>
