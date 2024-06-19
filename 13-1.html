@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!-- Demonstrating the load event. -->
+<html>
+<head>
+<meta charset = "utf-8">
+<title>load Event</title>
+<style>
+    /* محتویات فایل style.css */
+</style>
+<script>
+// Script to demonstrate the load event. 
+var seconds = 0;
+
+// called when the page loads to begin the timer
+function startTimer() 
+{
+    window.setInterval( "updateTime()", 1000 );
+} // end function startTimer
+
+// called every 1000 ms to update the timer
+function updateTime()
+{
+    ++seconds; 
+    document.getElementById( "soFar" ).innerHTML = seconds;
+} // end function updateTime
+
+window.addEventListener( "load", startTimer, false );
+</script>
+</head>
+<body>
+<p>Seconds you have spent viewing this page so far:
+<span id="soFar">0</span>
+</p>
+</body>
+</html>
